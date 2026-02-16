@@ -1,4 +1,4 @@
-# Weak Reference Utilities
+# WeakRef
 
 When subscribing to delegates and events in Unity/C#, **publishers hold strong references to subscriber instances**, so even after unsubscribing the GC cannot collect them, and "ghost callbacks" plus memory leaks often occur—e.g. callbacks still firing after scene changes or object destruction.
 
