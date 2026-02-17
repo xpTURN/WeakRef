@@ -66,6 +66,27 @@ namespace xpTURN.WeakRef.Tests
             Assert.That(() => evt.Subscribe(() => { }), Throws.ArgumentException.With.Message.Contain("Lambda"));
         }
 
+        [Test]
+        public void OperatorPlusEquals_InvokesHandler()
+        {
+            var evt = new WeakEvent();
+            var handler = new BoolHandler();
+            evt += handler.OnRaise;
+            evt.Raise();
+            Assert.That(handler.Called, Is.True);
+        }
+
+        [Test]
+        public void OperatorMinusEquals_DoesNotInvoke()
+        {
+            var evt = new WeakEvent();
+            var handler = new BoolHandler();
+            evt += handler.OnRaise;
+            evt -= handler.OnRaise;
+            evt.Raise();
+            Assert.That(handler.Called, Is.False);
+        }
+
         private static void SubscribeWithShortLivedTarget(WeakEvent evt)
         {
             var holder = new ActionSubscriber();
@@ -151,6 +172,27 @@ namespace xpTURN.WeakRef.Tests
         {
             var evt = new WeakEvent<int>();
             Assert.That(() => evt.Subscribe(x => { }), Throws.ArgumentException.With.Message.Contain("Lambda"));
+        }
+
+        [Test]
+        public void OperatorPlusEquals_InvokesHandler_WithArg()
+        {
+            var evt = new WeakEvent<int>();
+            var handler = new IntHandler();
+            evt += handler.OnRaise;
+            evt.Raise(42);
+            Assert.That(handler.Received, Is.EqualTo(42));
+        }
+
+        [Test]
+        public void OperatorMinusEquals_DoesNotInvoke()
+        {
+            var evt = new WeakEvent<int>();
+            var handler = new IntHandler { Received = -1 };
+            evt += handler.OnRaise;
+            evt -= handler.OnRaise;
+            evt.Raise(99);
+            Assert.That(handler.Received, Is.EqualTo(-1));
         }
 
         private static void SubscribeWithShortLivedTarget(WeakEvent<int> evt)

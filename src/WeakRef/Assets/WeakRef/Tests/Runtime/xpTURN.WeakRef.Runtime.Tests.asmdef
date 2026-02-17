@@ -1,5 +1,5 @@
 {
-    "name": "xpTURN.Runtime.Tests",
+    "name": "xpTURN.WeakRef.Runtime.Tests",
     "rootNamespace": "",
     "references": [
         "GUID:60c269d1b615c44be8d68f2c6d69f62b"

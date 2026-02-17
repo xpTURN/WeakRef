@@ -72,6 +72,29 @@ namespace xpTURN.WeakRef.Tests
             Assert.That(() => evt.Subscribe((s, e) => { }), Throws.ArgumentException.With.Message.Contain("Lambda"));
         }
 
+        [Test]
+        public void OperatorPlusEquals_InvokesHandler()
+        {
+            var evt = new WeakEventSource<EventArgs>();
+            var sender = new object();
+            var spy = new EventHandlerSpy();
+            evt += spy.OnEvent;
+            evt.Raise(sender, EventArgs.Empty);
+            Assert.That(spy.Called, Is.True);
+            Assert.That(spy.ReceivedSender, Is.SameAs(sender));
+        }
+
+        [Test]
+        public void OperatorMinusEquals_DoesNotInvoke()
+        {
+            var evt = new WeakEventSource<EventArgs>();
+            var handler = new EventHandlerSpy();
+            evt += handler.OnEvent;
+            evt -= handler.OnEvent;
+            evt.Raise(this, EventArgs.Empty);
+            Assert.That(handler.Called, Is.False);
+        }
+
         private static void SubscribeWithShortLivedTarget(WeakEventSource<EventArgs> evt)
         {
             var holder = new EventSubscriber();
