@@ -50,9 +50,14 @@ https://github.com/xpTURN/WeakRef.git?path=src/WeakRef/Assets/WeakRef
 
 ## UnityWeakReference&lt;T&gt;
 
-- **Constraint**: `T : UnityEngine.Object` (plain C# objects cannot be used).
-- **Role**: Makes `IsAlive`, `Target`, and `TryGetTarget` behave as "not present" when the Unity object has been destroyed.
-- **Members**: `IsAlive`, `Target`, `TryGetTarget(out T target)`, `SetTarget(T target)`.
+A weak-reference wrapper for Unity’s `UnityEngine.Object`.  
+It extends `System.WeakReference` but respects Unity’s special null semantics so that `IsAlive` and the target are evaluated correctly.
+
+## Why it exists
+
+- **Plain `WeakReference`**: Once the target is collected by the GC, `Target` becomes null and `IsAlive` is false.
+- **Unity objects**: `UnityEngine.Object` can be in a “destroyed” state (fake null) even when the C# reference exists, so null checks must use Unity’s overloaded `== null` behavior.
+- **UnityWeakReference**: It casts `Target` to `T` (a Unity object) and checks that result with Unity’s null semantics, then exposes `IsAlive` and `TryGetTarget` accordingly.
 
 ### Examples
 
