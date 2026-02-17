@@ -54,6 +54,23 @@ https://github.com/xpTURN/WeakRef.git?path=src/WeakRef/Assets/WeakRef
 - **Role**: Makes `IsAlive`, `Target`, and `TryGetTarget` behave as "not present" when the Unity object has been destroyed.
 - **Members**: `IsAlive`, `Target`, `TryGetTarget(out T target)`, `SetTarget(T target)`.
 
+### Examples
+
+**Basic usage (TryGetTarget)**
+
+```csharp
+var obj = GetComponent<SomeBehaviour>();
+var weak = new UnityWeakReference<SomeBehaviour>(obj);
+
+// Later...
+if (weak.TryGetTarget(out var target))
+{
+    target.DoSomething(); // Use only while still valid
+}
+```
+
+**Invalidation after Destroy**
+
 ```csharp
 var go = new GameObject();
 var wr = new UnityWeakReference<GameObject>(go);
