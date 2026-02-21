@@ -20,6 +20,13 @@
     "WeakEvent",
     "WeakEventSource"
   ],
+  "samples": [
+    {
+      "displayName": "Tests",
+      "description": "Contains Tests code and assets for the WeakRef library.",
+      "path": "Tests~/"
+    }
+  ],
   "author": {
     "name": "xpTURN",
     "email": "xpturn@gmail.com",
