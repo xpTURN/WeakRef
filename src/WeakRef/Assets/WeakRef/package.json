@@ -1,6 +1,6 @@
 {
   "name": "com.xpturn.weakref",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "displayName": "xpTURN.WeakRef",
   "description": "Delegate, event, and Action wrappers that treat targets as 'dead' when they are collected by GC (plain objects) or destroyed (Unity objects). Used to reduce memory leaks and ghost callbacks.",
   "unity": "2021.3",
