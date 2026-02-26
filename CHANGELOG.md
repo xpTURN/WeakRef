@@ -1,7 +1,5 @@
 # Changelog
 
-All notable changes to MegaData are documented in this file.
-
 ---
 
 ## [1.0.2] - 2026-02-21
